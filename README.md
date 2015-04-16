@@ -1,0 +1,2 @@
+# Pharaoh - PHAR diff utility
+

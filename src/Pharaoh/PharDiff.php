@@ -27,4 +27,9 @@ class PharDiff
         echo `git diff --no-index $argA $argB`;
         exit;
     }
+    
+    public function listChecksums($algo)
+    {
+        // Iterate both directories; hash all the files
+    }
 }

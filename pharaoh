@@ -1,15 +1,27 @@
 #!/usr/bin/env php
 <?php
-require_once __DIR__.'/autoload.php';
+require_once __DIR__.'/src/autoload.php';
+$opts = \getopt('gdrpc::', [
+    'git-diff', 'diff', 'report', 'pdf', 'check::'
+]);
+
 if ($argc < 3) {
     die("Please pass two phars to diff them.\n");
 }
 
+$pharB = \array_pop($argv);
+$pharA = \array_pop($argv);
+
+
 $phars = [
-    new \ParagonIE\Pharaoh\Pharaoh($argv[1], 'A.phar'),
-    new \ParagonIE\Pharaoh\Pharaoh($argv[2], 'B.phar')
+    new \ParagonIE\Pharaoh\Pharaoh($pharA, 'A.phar'),
+    new \ParagonIE\Pharaoh\Pharaoh($pharB, 'B.phar')
 ];
 
 $diff = new \ParagonIE\Pharaoh\PharDiff($phars[0], $phars[1]);
 
-$diff->printGitDiff();
+if ($opts['c']) {
+    $diff->listChecksums($opts['c']);
+} elseif ($opts['check']) {
+    $diff->listChecksums($opts['check']);
+}

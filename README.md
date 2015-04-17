@@ -2,18 +2,18 @@
 
 Display the differences between all of the files in two PHP Archives.
 
-Copyright 2015 [Paragon Initiative Enterprises](https://paragonie.com)
+Copyright (c) 2015 [Paragon Initiative Enterprises](https://paragonie.com)
 
 ## Set up
 
-```sh
-ln -s ./pharaoh /usr/bin/pharaoh
-```
+1. Edit your php.ini file and set `phar.readonly` to `0` for PHP's CLI.
+2. Optionally, symlink `/usr/bin/pharaoh` to the `pharaoh` file in the current
+   directory.
 
 ## Example
 
 ```sh
-pharaoh composer.phar composer-from-source.phar
+pharaoh composer-from-source.phar composer.phar
 ```
 
 ## Why?

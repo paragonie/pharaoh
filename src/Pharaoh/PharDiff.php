@@ -39,6 +39,19 @@ class PharDiff
         exit;
     }
     
+    /**
+     * Prints a git-formatted diff of the two phars
+     */
+    public function printGnuDiff()
+    {
+        // Lazy way. Will replace with custom implementaiton later.
+        
+        $argA = \escapeshellarg($this->phars[0]->tmp);
+        $argB = \escapeshellarg($this->phars[1]->tmp);
+        echo `diff $argA $argB`;
+        exit;
+    }
+    
     public function listChecksums($algo)
     {
         list($pharA, $pharB) = $this->hashChildren(

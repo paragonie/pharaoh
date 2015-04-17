@@ -3,7 +3,18 @@ namespace ParagonIE\Pharaoh;
 
 class PharDiff
 {
+    
+    protected $c = [
+        '' => "\033[0;39m",
+        'red'       => "\033[0;31m",
+        'green'     => "\033[0;32m",
+        'blue'      => "\033[1;34m",
+        'cyan'      => "\033[1;36m",
+        'silver'    => "\033[0;37m",
+        'yellow'    => "\033[0;93m"
+    ];
     private $phars = [];
+    
     /**
      * Constructor uses dependency injection.
      * 
@@ -36,9 +47,27 @@ class PharDiff
             $this->phars[1]->tmp
         );
         
-        $count = count($pharA);
-        for ($i = 0; $i < $count; ++$i) {
-            
+        foreach (\array_keys($pharA) as $i) {
+            if (isset($pharA[$i]) && isset($pharB[$i])) {
+                // We are NOT concerned about local timing attacks.
+                if ($pharA[$i] !== $pharB[$i]) {
+                    echo "\t", $i,
+                        "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''], 
+                        "\t", $this->c['green'], $pharB[$i], $this->c[''],
+                    "\n";
+                } elseif (isset($pharA[$i])) {
+                    echo "\t", $i,
+                        "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''], 
+                        "\t", \str_repeat('-', \strlen($pharA[$i])),
+                    "\n";
+                } elseif (isset($pharB[$i])) {
+                    echo "\t", $i,
+                        "\n\t\t", \str_repeat('-', \strlen($pharB[$i])),
+                        "\t", $this->c['green'], $pharB[$i], $this->c[''],
+                    "\n";
+                    
+                }
+            }
         }
     }
     
@@ -59,11 +88,16 @@ class PharDiff
         // Array of two empty arrays
         $hashes = [[], []];
         for ($i = 0; $i < $numFiles; ++$i) {
-            if (isset($filesA)) {
+            if (isset($filesA[$i])) {
                 $a = \preg_replace('#^'.\preg_quote($dirA, '#').'#', '', $filesA[$i]);
-            }
-            if (isset($filesB)) {
+                if (isset($filesB[$i])) {
+                    $b = \preg_replace('#^'.\preg_quote($dirB, '#').'#', '', $filesB[$i]);
+                } else {
+                    $b = $a;
+                }
+            } elseif (isset($filesB[$i])) {
                 $b = \preg_replace('#^'.\preg_quote($dirB, '#').'#', '', $filesB[$i]);
+                $a = $b;
             }
             
             if (isset($filesA[$i])) {

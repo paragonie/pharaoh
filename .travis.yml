@@ -9,7 +9,6 @@ matrix:
     - php: "7.2"
     - php: "nightly"
     - php: "master"
-    - php: "hhvm"
 
 install:
     - composer self-update

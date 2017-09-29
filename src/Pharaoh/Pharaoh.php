@@ -62,7 +62,7 @@ class Pharaoh
         }
         $this->tmp = $tmp;
         \unlink($this->tmp);
-        \mkdir($this->tmp, 0777, true);
+        \mkdir($this->tmp, 0755, true);
         
         // Let's extract to our temporary directory
         $this->phar->extractTo($this->tmp);

@@ -22,6 +22,7 @@
     "require": {
         "php": "^7",
         "paragonie/constant_time_encoding": "^2",
+        "paragonie/sodium_compat": "^1.3",
         "ulrichsg/getopt-php": "^3"
     },
     "require-dev": {

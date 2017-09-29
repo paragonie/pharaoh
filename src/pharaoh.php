@@ -24,11 +24,12 @@ $phars = [
 $diff = new \ParagonIE\Pharaoh\PharDiff($phars[0], $phars[1]);
 
 if (!empty($opts['c'])) {
-    $diff->listChecksums($opts['c']);
+    $return = $diff->listChecksums($opts['c']);
 } elseif (!empty($opts['check'])) {
-    $diff->listChecksums($opts['check']);
+    $return = $diff->listChecksums($opts['check']);
 } elseif (isset($opts['d']) || isset($opts['diff'])) {
-    $diff->printGnuDiff();
+    $return = $diff->printGnuDiff();
 } else {
-    $diff->printGitDiff();
+    $return = $diff->printGitDiff();
 }
+exit($return);

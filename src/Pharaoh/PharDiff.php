@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace ParagonIE\Pharaoh;
+use ParagonIE\ConstantTime\Hex;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
 /**
@@ -39,31 +40,31 @@ class PharDiff
     /**
      * Prints a git-formatted diff of the two phars
      * @psalm-suppress ForbiddenCode
-     * @return void
+     * @return int
      */
-    public function printGitDiff()
+    public function printGitDiff(): int
     {
         // Lazy way; requires git. Will replace with custom implementaiton later.
         
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
         echo `git diff --no-index $argA $argB`;
-        exit;
+        return 0;
     }
     
     /**
      * Prints a git-formatted diff of the two phars
      * @psalm-suppress ForbiddenCode
-     * @return void
+     * @return int
      */
-    public function printGnuDiff()
+    public function printGnuDiff(): int
     {
         // Lazy way. Will replace with custom implementaiton later.
         
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
         echo `diff $argA $argB`;
-        exit;
+        return 0;
     }
     
     /**
@@ -104,18 +105,26 @@ class PharDiff
             
             if (isset($filesA[$i])) {
                 // A exists
-                $hashes[0][$a] = \hash_file($algo, $thisFileA);
+                if (\strtolower($algo) === 'blake2b') {
+                    $hashes[0][$a] = Hex::encode(\ParagonIE_Sodium_File::generichash($thisFileA));
+                } else {
+                    $hashes[0][$a] = \hash_file($algo, $thisFileA);
+                }
             } elseif (isset($filesB[$i])) {
                 // A doesn't exist, B does
-                $hashes[0][$b] = '';
+                $hashes[0][$a] = '';
             }
             
             if (isset($filesB[$i])) {
                 // B exists
-                $hashes[1][$b] = \hash_file($algo, $thisFileB);
+                if (\strtolower($algo) === 'blake2b') {
+                    $hashes[1][$b] = Hex::encode(\ParagonIE_Sodium_File::generichash($thisFileB));
+                } else {
+                    $hashes[1][$b] = \hash_file($algo, $thisFileB);
+                }
             } elseif (isset($filesA[$i])) {
                 // B doesn't exist, A does
-                $hashes[1][$a] = '';
+                $hashes[1][$b] = '';
             }
         }
         return $hashes;
@@ -168,9 +177,9 @@ class PharDiff
 
     /**
      * @param string $algo
-     * @return void
+     * @return int
      */
-    public function listChecksums(string $algo = 'sha384')
+    public function listChecksums(string $algo = 'sha384'): int
     {
         list($pharA, $pharB) = $this->hashChildren(
             $algo,
@@ -178,28 +187,35 @@ class PharDiff
             $this->phars[1]->tmp
         );
 
+        $diffs = 0;
         /** @var string $i */
         foreach (\array_keys($pharA) as $i) {
             if (isset($pharA[$i]) && isset($pharB[$i])) {
                 // We are NOT concerned about local timing attacks.
                 if ($pharA[$i] !== $pharB[$i]) {
+                    ++$diffs;
                     echo "\t", (string) $i,
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", $this->c['green'], $pharB[$i], $this->c[''],
                     "\n";
-                } elseif (isset($pharA[$i])) {
+                } elseif (isset($pharA[$i]) && !isset($pharB[$i])) {
+                    ++$diffs;
                     echo "\t", (string) $i,
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", \str_repeat('-', \strlen($pharA[$i])),
                     "\n";
-                } elseif (isset($pharB[$i])) {
+                } elseif (isset($pharB[$i]) && !isset($pharA[$i])) {
+                    ++$diffs;
                     echo "\t", (string) $i,
                     "\n\t\t", \str_repeat('-', \strlen($pharB[$i])),
                     "\t", $this->c['green'], $pharB[$i], $this->c[''],
                     "\n";
-
                 }
             }
         }
+        if ($diffs === 0) {
+            return 0;
+        }
+        return 1;
     }
 }

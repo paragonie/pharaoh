@@ -1,7 +1,6 @@
 {
     "name":         "paragonie/pharaoh",
     "description":  "Compare PHARs from the Command Line",
-    "version":      "0.2.0",
     "keywords": [
             "tool",
             "utility",
@@ -20,14 +19,22 @@
                 "role":     "Developer"
             }
         ],
+    "require": {
+        "php": "^7",
+        "paragonie/constant_time_encoding": "^2",
+        "ulrichsg/getopt-php": "^3"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^0|^1"
+    },
     "support": {
         "issues":   "https://github.com/paragonie/pharaoh/issues",
         "email":    "info@paragonie.com",
         "source":   "https://github.com/paragonie/pharaoh"
     },
     "autoload": {
-        "files": [
-            "src/autoload.php"
-        ]
+        "psr-4": {
+            "ParagonIE\\Pharaoh\\": "src/Pharaoh/"
+        }
     }
 }

@@ -15,14 +15,5 @@ Check out our other [open source projects](https://paragonie.com/projects) too.
 ## Example
 
 ```sh
-pharaoh composer-from-source.phar composer.phar
+pharaoh composer-from-source.phar composer-from-web.phar
 ```
-
-## Why?
-
-As part of our [ASGard](https://getasgard.com) project, we must verify the
-reproducibility of software deliverables. This means building a .phar from
-source and comparing it to the one provided by the vendor.
-
-There wasn't already a simple command line utility for examining the differences
-between two .phar files, so our CDO wrote this as a proof of concept.

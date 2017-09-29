@@ -1,13 +1,38 @@
 <?php
+declare(strict_types=1);
 namespace ParagonIE\Pharaoh;
 
+use ParagonIE\ConstantTime\Hex;
+
+/**
+ * Class Pharaoh
+ * @package ParagonIE\Pharaoh
+ */
 class Pharaoh
 {
+    /**
+     * @var \Phar
+     */
     public $phar;
+
+    /**
+     * @var string
+     */
     public $tmp;
+
+    /**
+     * @var string
+     */
     public static $stubfile;
-    
-    public function __construct($file, $alias = null)
+
+    /**
+     * Pharaoh constructor.
+     * @param string $file
+     * @param string $alias
+     * @throws PharError
+     * @throws \Error
+     */
+    public function __construct(string $file, $alias = null)
     {
         if (!\is_readable($file)) {
             throw new PharError($file.' cannot be read');
@@ -18,23 +43,24 @@ class Pharaoh
         
         // Set the static variable here
         if (empty(self::$stubfile)) {
-            self::$stubfile = \bin2hex(
-                \mcrypt_create_iv(9, MCRYPT_DEV_URANDOM)
-            ).'.pharstub';
+            self::$stubfile = Hex::encode(\random_bytes(12)).'.pharstub';
         }
         
         $this->phar = new \Phar($file);
         
         if (empty($alias)) {
             // We have to give every one a different alias, or it pukes.
-            $alias = \bin2hex(
-                \mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)
-            ).'.phar';
+            $alias = Hex::encode(\random_bytes(16)).'.phar';
         }
         $this->phar->setAlias($alias);
         
         // Make a random folder in /tmp
-        $this->tmp = \tempnam(\sys_get_temp_dir(), 'phr_');
+        /** @var string|bool $tmp */
+        $tmp = \tempnam(\sys_get_temp_dir(), 'phr_');
+        if (!\is_string($tmp)) {
+            throw new \Error('Could not create temporary file');
+        }
+        $this->tmp = $tmp;
         \unlink($this->tmp);
         \mkdir($this->tmp, 0777, true);
         

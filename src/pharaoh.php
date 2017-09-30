@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 require_once \dirname(__DIR__) . '/vendor/autoload.php';
-$opts = \getopt('gdrpc::', [
-    'git-diff', 'diff', 'report', 'pdf', 'check::'
+$opts = \getopt('gdrpcv::', [
+    'git-diff', 'diff', 'report', 'pdf', 'check::', 'verbose'
 ]);
 
 if ($argc < 3) {
@@ -22,6 +22,10 @@ $phars = [
 ];
 
 $diff = new \ParagonIE\Pharaoh\PharDiff($phars[0], $phars[1]);
+
+if (!empty($opts['v']) || !empty($opts['verbose'])) {
+    $diff->setVerbose(true);
+}
 
 if (!empty($opts['c'])) {
     $return = $diff->listChecksums($opts['c']);

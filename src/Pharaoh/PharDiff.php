@@ -25,6 +25,9 @@ class PharDiff
 
     /** @var array<int, Pharaoh> */
     private $phars = [];
+
+    /** @var bool $verbose */
+    private $verbose = false;
     
     /**
      * Constructor uses dependency injection.
@@ -48,8 +51,13 @@ class PharDiff
         
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
-        echo `git diff --no-index $argA $argB`;
-        return 0;
+        $diff = `git diff --no-index $argA $argB`;
+        echo $diff;
+        if (empty($diff) && $this->verbose) {
+            echo 'No differences encountered.', PHP_EOL;
+            return 0;
+        }
+        return 1;
     }
     
     /**
@@ -60,11 +68,15 @@ class PharDiff
     public function printGnuDiff(): int
     {
         // Lazy way. Will replace with custom implementaiton later.
-        
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
-        echo `diff $argA $argB`;
-        return 0;
+        $diff = `diff $argA $argB`;
+        echo $diff;
+        if (empty($diff) && $this->verbose) {
+            echo 'No differences encountered.', PHP_EOL;
+            return 0;
+        }
+        return 1;
     }
     
     /**
@@ -214,8 +226,20 @@ class PharDiff
             }
         }
         if ($diffs === 0) {
+            if ($this->verbose) {
+                echo 'No differences encountered.', PHP_EOL;
+            }
             return 0;
         }
         return 1;
+    }
+
+    /**
+     * @param bool $value
+     * @return void
+     */
+    public function setVerbose(bool $value)
+    {
+        $this->verbose = $value;
     }
 }

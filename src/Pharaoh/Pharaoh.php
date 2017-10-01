@@ -69,7 +69,7 @@ class Pharaoh
         
         // Also extract the stub
         \file_put_contents(
-            $this->tmp.'/'.self::$stubfile,
+            $this->tmp . '/' . self::$stubfile,
             $this->phar->getStub()
         );
     }

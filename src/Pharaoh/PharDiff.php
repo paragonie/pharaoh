@@ -41,7 +41,8 @@ class PharDiff
     }
     
     /**
-     * Prints a git-formatted diff of the two phars
+     * Prints a git-formatted diff of the two phars.
+     *
      * @psalm-suppress ForbiddenCode
      * @return int
      */
@@ -61,7 +62,8 @@ class PharDiff
     }
     
     /**
-     * Prints a git-formatted diff of the two phars
+     * Prints a GNU diff of the two phars.
+     *
      * @psalm-suppress ForbiddenCode
      * @return int
      */
@@ -188,6 +190,9 @@ class PharDiff
     }
 
     /**
+     * Prints out all of the differences of checksums of the files contained
+     * in both PHP archives.
+     *
      * @param string $algo
      * @return int
      */
@@ -235,6 +240,9 @@ class PharDiff
     }
 
     /**
+     * Verbose mode says something when there are no differences.
+     * By default, you can just check the return value.
+     *
      * @param bool $value
      * @return void
      */

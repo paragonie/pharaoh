@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace ParagonIE\Pharaoh;
 use ParagonIE\ConstantTime\Hex;
-use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
 /**
  * Class PharDiff
@@ -52,6 +51,7 @@ class PharDiff
         
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
+        /** @var string $diff */
         $diff = `git diff --no-index $argA $argB`;
         echo $diff;
         if (empty($diff) && $this->verbose) {
@@ -72,6 +72,7 @@ class PharDiff
         // Lazy way. Will replace with custom implementaiton later.
         $argA = \escapeshellarg($this->phars[0]->tmp);
         $argB = \escapeshellarg($this->phars[1]->tmp);
+        /** @var string $diff */
         $diff = `diff $argA $argB`;
         echo $diff;
         if (empty($diff) && $this->verbose) {
@@ -88,6 +89,7 @@ class PharDiff
      * @param string $dirA
      * @param string $dirB
      * @return array<int, array<mixed, string>>
+     * @throws \SodiumException
      */
     public function hashChildren(string $algo,string  $dirA, string $dirB)
     {
@@ -158,7 +160,7 @@ class PharDiff
          * @var array<mixed, string> $fileList
          * @var string $i
          * @var string $file
-         * @var RecursiveDirectoryIterator $dir
+         * @var \RecursiveDirectoryIterator $dir
          * @var \RecursiveIteratorIterator $ite
          */
         $dir = new \RecursiveDirectoryIterator($folder);
@@ -169,7 +171,8 @@ class PharDiff
             $pattern = '/.*\.' . $extension . '$/';
         }
         $files = new \RegexIterator($ite, $pattern, \RegexIterator::GET_MATCH);
-        /** @var array<mixed, string> $fileList */
+
+        /** @var array<string, string> $fileList */
         $fileList = [];
 
         /**
@@ -178,7 +181,9 @@ class PharDiff
         foreach($files as $fileSub) {
             $fileList = \array_merge($fileList, $fileSub);
         }
+
         /**
+         * @var string $i
          * @var string $file
          */
         foreach ($fileList as $i => $file) {
@@ -195,6 +200,7 @@ class PharDiff
      *
      * @param string $algo
      * @return int
+     * @throws \SodiumException
      */
     public function listChecksums(string $algo = 'sha384'): int
     {

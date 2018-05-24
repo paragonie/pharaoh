@@ -31,6 +31,7 @@ class Pharaoh
      * @param string $alias
      * @throws PharError
      * @throws \Error
+     * @throws \Exception
      */
     public function __construct(string $file, $alias = null)
     {

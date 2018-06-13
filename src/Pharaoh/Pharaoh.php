@@ -68,7 +68,7 @@ class Pharaoh
 
         $this->tmp = $tmp;
         \unlink($this->tmp);
-        if (!mkdir($this->tmp, 0755, true) && !is_dir($this->tmp)) {
+        if (!\mkdir($this->tmp, 0755, true) && !\is_dir($this->tmp)) {
             throw new \Error('Could not create temporary directory');
         }
         

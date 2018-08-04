@@ -33,7 +33,7 @@
         "email":    "info@paragonie.com",
         "source":   "https://github.com/paragonie/pharaoh"
     },
-    "bin": "pharaoh",
+    "bin": ["pharaoh"],
     "autoload": {
         "psr-4": {
             "ParagonIE\\Pharaoh\\": "src/Pharaoh/"

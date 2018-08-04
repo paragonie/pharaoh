@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <psalm
     name="Pharaoh Type Safety Automated Analysis"
-    stopOnFirstError="false"
     useDocblockTypes="true"
     totallyTyped="true"
 >
@@ -21,8 +20,10 @@
         <InvalidDocblock errorLevel="info" />
         <MisplacedRequiredParam errorLevel="info" />
 
+        <RedundantCondition errorLevel="info" />
+        <ParadoxicalCondition errorLevel="info" />
+
         <PropertyNotSetInConstructor errorLevel="info" />
         <MissingConstructor errorLevel="info" />
-        <UntypedParam errorLevel="info" />
     </issueHandlers>
 </psalm>

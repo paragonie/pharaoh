@@ -32,7 +32,7 @@ To see what differs between the two files, run this command:
 
 Sample output:
 
-```terminal
+```diff
 $ pharaoh dist/sodium-compat-php5.phar dist/sodium-compat-php7.phar
 diff --git a/tmp/phr_GPrhh5/vendor/autoload.php b/tmp/phr_SBYnr7/vendor/autoload.php
 index c20d4db..5c849e0 100644
@@ -128,7 +128,7 @@ a GNU diff, pass the `-d` flag, like so:
 
 Sample output:
 
-```terminal
+```diff
 $ pharaoh -d dist/sodium-compat-php5.phar dist/sodium-compat-php7.phar
 Common subdirectories: /tmp/phr_EsTl2p/lib and /tmp/phr_UV3iJt/lib
 Common subdirectories: /tmp/phr_EsTl2p/src and /tmp/phr_UV3iJt/src

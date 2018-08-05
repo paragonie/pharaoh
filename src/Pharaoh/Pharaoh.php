@@ -84,6 +84,9 @@ class Pharaoh
 
     public function __destruct()
     {
-        \Phar::unlinkArchive($this->phar->getPath());
+        $path = $this->phar->getPath();
+        unset($this->phar);
+
+        \Phar::unlinkArchive($path);
     }
 }

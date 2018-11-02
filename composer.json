@@ -26,7 +26,7 @@
         "ulrichsg/getopt-php": "^3"
     },
     "require-dev": {
-        "vimeo/psalm": "^0|^1"
+        "vimeo/psalm": "^1|^2"
     },
     "support": {
         "issues":   "https://github.com/paragonie/pharaoh/issues",

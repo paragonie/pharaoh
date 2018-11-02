@@ -221,13 +221,13 @@ class PharDiff
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", $this->c['green'], $pharB[$i], $this->c[''],
                     "\n";
-                } elseif (isset($pharA[$i]) && !isset($pharB[$i])) {
+                } elseif (!empty($pharA[$i]) && empty($pharB[$i])) {
                     ++$diffs;
                     echo "\t", (string) $i,
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", \str_repeat('-', \strlen($pharA[$i])),
                     "\n";
-                } elseif (isset($pharB[$i]) && !isset($pharA[$i])) {
+                } elseif (!empty($pharB[$i]) && empty($pharA[$i])) {
                     ++$diffs;
                     echo "\t", (string) $i,
                     "\n\t\t", \str_repeat('-', \strlen($pharB[$i])),

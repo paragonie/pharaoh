@@ -12,8 +12,10 @@ so `sha256sum` will not yield the same result, even if they were both built
 from the same source code and contain the same contents. This is because
 Composer randomizes e.g. their autoloader class names. 
 
-Copyright (c) 2015 - 2017 [Paragon Initiative Enterprises](https://paragonie.com). 
+Copyright (c) 2015 - 2018 [Paragon Initiative Enterprises](https://paragonie.com). 
 Check out our other [open source projects](https://paragonie.com/projects) too.
+
+Pharaoh is used by [Box](https://github.com/humbug/box) to provide diffs.
 
 ## Example
 

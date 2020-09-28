@@ -176,7 +176,7 @@ class PharDiff
         $fileList = [];
 
         /**
-         * @var string $fileSub
+         * @var string[] $fileSub
          */
         foreach($files as $fileSub) {
             $fileList = \array_merge($fileList, $fileSub);

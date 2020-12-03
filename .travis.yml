@@ -15,7 +15,7 @@ matrix:
     - php: "8.0"
     - php: "nightly"
     - php: "master"
-  allow_failure:
+  allow_failures:
     - php: "nightly"
     - php: "master"
 

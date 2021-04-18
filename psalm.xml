@@ -12,5 +12,7 @@
     </projectFiles>
 
     <issueHandlers>
+        <UnusedVariable errorLevel="info" />
+        <UnnecessaryVarAnnotation errorLevel="info" />
     </issueHandlers>
 </psalm>

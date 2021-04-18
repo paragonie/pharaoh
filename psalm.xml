@@ -6,8 +6,13 @@
 >
     <projectFiles>
         <directory name="src/Pharaoh" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
+        <UnusedVariable errorLevel="info" />
+        <UnnecessaryVarAnnotation errorLevel="info" />
     </issueHandlers>
 </psalm>

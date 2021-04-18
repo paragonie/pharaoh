@@ -187,7 +187,7 @@ class PharDiff
          * @var string $file
          */
         foreach ($fileList as $i => $file) {
-            if (\preg_match('#/\.{1,2}$#', (string) $file)) {
+            if (\preg_match('#/\.{1,2}$#', $file)) {
                 unset($fileList[$i]);
             }
         }
@@ -217,19 +217,19 @@ class PharDiff
                 // We are NOT concerned about local timing attacks.
                 if ($pharA[$i] !== $pharB[$i]) {
                     ++$diffs;
-                    echo "\t", (string) $i,
+                    echo "\t", $i,
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", $this->c['green'], $pharB[$i], $this->c[''],
                     "\n";
                 } elseif (!empty($pharA[$i]) && empty($pharB[$i])) {
                     ++$diffs;
-                    echo "\t", (string) $i,
+                    echo "\t", $i,
                     "\n\t\t", $this->c['red'], $pharA[$i], $this->c[''],
                     "\t", \str_repeat('-', \strlen($pharA[$i])),
                     "\n";
                 } elseif (!empty($pharB[$i]) && empty($pharA[$i])) {
                     ++$diffs;
-                    echo "\t", (string) $i,
+                    echo "\t", $i,
                     "\n\t\t", \str_repeat('-', \strlen($pharB[$i])),
                     "\t", $this->c['green'], $pharB[$i], $this->c[''],
                     "\n";

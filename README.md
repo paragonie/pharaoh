@@ -1,6 +1,6 @@
 # Pharaoh - PHAR diff utility
 
-[![Build Status](https://travis-ci.org/paragonie/pharaoh.svg?branch=master)](https://travis-ci.org/paragonie/pharaoh)
+[![Build Status](https://github.com/paragonie/pharaoh/actions/workflows/ci.yml/badge.svg)](https://github.com/paragonie/pharaoh/actions)
 [![Latest Stable Version](https://poser.pugx.org/paragonie/pharaoh/v/stable)](https://packagist.org/packages/paragonie/pharaoh)
 [![Latest Unstable Version](https://poser.pugx.org/paragonie/pharaoh/v/unstable)](https://packagist.org/packages/paragonie/pharaoh)
 [![License](https://poser.pugx.org/paragonie/pharaoh/license)](https://packagist.org/packages/paragonie/pharaoh)

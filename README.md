@@ -1,5 +1,8 @@
 # Pharaoh - PHAR diff utility
 
+> **Notice**: [Box](https://github.com/humbug/box) has a diff utility that does what Pharaoh set out to do, and is more
+> widely supported and adopted. We are deprecating Pharaoh in favor of `box diff`.
+
 [![Build Status](https://github.com/paragonie/pharaoh/actions/workflows/ci.yml/badge.svg)](https://github.com/paragonie/pharaoh/actions)
 [![Latest Stable Version](https://poser.pugx.org/paragonie/pharaoh/v/stable)](https://packagist.org/packages/paragonie/pharaoh)
 [![Latest Unstable Version](https://poser.pugx.org/paragonie/pharaoh/v/unstable)](https://packagist.org/packages/paragonie/pharaoh)
@@ -14,8 +17,6 @@ Composer randomizes e.g. their autoloader class names.
 
 Copyright (c) 2015 - 2018 [Paragon Initiative Enterprises](https://paragonie.com). 
 Check out our other [open source projects](https://paragonie.com/projects) too.
-
-Pharaoh is used by [Box](https://github.com/humbug/box) to provide diffs.
 
 ## Example
 
